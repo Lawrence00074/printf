@@ -7,7 +7,7 @@
  */
 int get_flags(const char *format, int *i)
 {
-	int j, curr_i;
+	int mb, curr_i;
 	int flags = 0;
 
 	const char FLAGS_CH[] = { '-', '+', '0', '#', ' ', '\0'};
@@ -15,14 +15,14 @@ int get_flags(const char *format, int *i)
 
 	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
 	{
-		for (j = 0; FLAGS_CH[j] != '\0'; j++)
-			if (format[curr_i] == FLAGS_CH[j])
+		for (mb = 0; FLAGS_CH[mb] != '\0'; mb++)
+			if (format[curr_i] == FLAGS_CH[mb])
 			{
-				flags |= FLAGS_ARR[j];
+				flags |= FLAGS_ARR[mb];
 				break;
 			}
 
-		if (FLAGS_CH[j] == 0)
+		if (FLAGS_CH[mb] == 0)
 			break;
 	}
 

@@ -1,7 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
-#include <string.h>
-#include <stdio.h>
 
 void print_buffer(char buffer[], int *buff_ind);
 /**
@@ -11,7 +8,7 @@ void print_buffer(char buffer[], int *buff_ind);
  */
 int _printf(const char *format, ...)
 {
-	int i, print = 0, print_char = 0;
+	int mb, print = 0, print_char = 0;
 	int flags, width, precision, size, buff_ind = 0;
 	va_list list;
 	char buffer[BUFF_SIZE];
@@ -21,11 +18,11 @@ int _printf(const char *format, ...)
 
 	va_start(list, format);
 
-	for (i = 0; format && format[i] != '\0'; i++)
+	for (mb = 0; format && format[mb] != '\0'; mb++)
 	{
-		if (format[i] != '%')
+		if (format[mb] != '%')
 		{
-			buffer[buff_ind++] = format[i];
+			buffer[buff_ind++] = format[mb];
 	
 			if (buff_ind == BUFF_SIZE)
 				print_buffer(buffer, &buff_ind);
@@ -34,12 +31,12 @@ int _printf(const char *format, ...)
 		else
 		{
 			print_buffer(buffer, &buff_ind);
-			flags = get_flags(format, &i);
-			width = get_width(format, &i, list);
-			precision = get_precision(format, &i, list);
-			size = get_size(format, &i);
-			++i;
-			print = handle_print(format, &i, list, buffer, flags, width, precision, size);
+			flags = get_flags(format, &mb);
+			width = get_width(format, &mb, list);
+			precision = get_precision(format, &mb, list);
+			size = get_size(format, &mb);
+			++mb;
+			print = handle_print(format, &mb, list, buffer, flags, width, precision, size);
 			if (print == -1)
 				return (-1);
 			print_char += print;
